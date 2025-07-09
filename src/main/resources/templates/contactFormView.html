@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>お問い合わせフォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        label {
+            width: 130px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 250px;
+            padding: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .error-message {
+            color: red;
+            margin-left: 130px; /* label幅に合わせる */
+            font-size: 0.9em;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+        button {
+            margin-left: 130px;
+            padding: 6px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>お問い合わせフォーム</h2>
+
+<form th:action="@{/confirm}" method="post" th:object="${contactForm}">
+
+    <div class="form-group">
+        <label for="name">お名前</label>
+        <input type="text" id="name" th:field="*{name}" />
+    </div>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></p>
+
+    <div class="form-group">
+        <label for="email">メールアドレス</label>
+        <input type="text" id="email" th:field="*{email}" />
+    </div>
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
+
+    <div class="form-group">
+        <label for="message">お問い合わせ内容</label>
+        <textarea id="message" th:field="*{message}"></textarea>
+    </div>
+    <p th:if="${#fields.hasErrors('message')}" th:errors="*{message}" class="error-message"></p>
+
+    <button type="submit">確認画面へ</button>
+
+</form>
+
+</body>
+</html>
